@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Товары категории</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section class="page">
+    <h2 class="section-title" id="pageTitle">Товары</h2>
+    <div id="materialsContainer" class="grid grid-cols-3 gap-6">
+      <!-- JS подставит карточки материалов -->
+    </div>
+    <div id="noResults" style="display:none; text-align:center; margin-top:20px;">
+      Ничего не найдено 😢
+    </div>
+  </section>
+
+  <script>
+    let materialsData = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const category = new URLSearchParams(window.location.search).get('cat');
+      document.getElementById('pageTitle').textContent = `Категория: ${category}`;
+      await loadMaterials();
+      renderMaterials(category);
+    });
+
+    // Загрузка всех материалов
+    async function loadMaterials() {
+      try {
+        const res = await fetch('/materials_magaz');
+        materialsData = await res.json();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // Рендер карточек по категории
+    function renderMaterials(category) {
+      const container = document.getElementById('materialsContainer');
+      const noResults = document.getElementById('noResults');
+      container.innerHTML = '';
+
+      const filtered = materialsData.filter(m => m.category === category);
+
+      if (filtered.length === 0) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+        filtered.forEach(m => {
+          const card = document.createElement('div');
+          card.className = 'material-card';
+          card.innerHTML = `
+            <div class="card-img">
+              <img src="/uploads/${m.image}" alt="${m.title}">
+            </div>
+            <div class="card-content">
+              <h3 class="item-title">${m.title}</h3>
+              <p>${m.content}</p>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
+    }
+  </script>
+</body>
+</html>

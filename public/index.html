@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="heroSitename">Can't load title 😢</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css"> 
+</head>
+<body>
+    <!-- Прелоадер -->
+    <div id="preloader">
+        <!-- From Uiverse.io by mobinkakei -->
+        <div class="wrapper">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+            <div class="shadow"></div>
+        </div>
+        <div class="loader-text">Loading...</div>
+    </div>
+
+    <!-- Навигация -->
+    <nav id="navbar">
+        <a href="#home" class="logo" id="heroSitename2">Can't load title 😢</a>
+        <div class="nav-right">
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#materials">Каталог</a></li>                
+                <li><a href="#gallery">Наши работы</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+            </ul>
+            <div class="theme-switch-wrapper">
+                <input type="checkbox" id="theme-checkbox" class="switch-theme">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Оверлей -->
+    <div class="menu-overlay" id="menu-overlay"></div>
+
+    <!-- Главная страница -->
+    <section id="home" class="page">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 id="heroTitle">Загрузка…</h1>
+                <p id="heroDesc">Загрузка…</p>
+                <a href="#materials" class="btn">Наша продукция</a>
+            </div>
+            <div class="hero-image" id="homeImage">
+                <!-- здесь JS вставит картинку -->
+            </div>
+        </div>
+        <div class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Материалы -->
+    <section id="materials" class="page">
+        <h2 class="section-title">Каталог продукции</h2>
+
+
+        <!-- Блок кнопок-фильтров категорий -->
+        <div class="categories-filter" id="categoriesFilter" style="margin-bottom: 30px; text-align: center;"></div>
+
+        <!-- Блок «ничего не найдено» -->
+        <div id="noResults" style="display: none; text-align: center; margin-top: 20px;">
+            Ничего не найдено 😢
+        </div>
+
+        <!-- Контейнер для карточек -->
+        <div class="materials-container" id="materialsContainer">
+            <!-- JS заполнит карточки -->
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section id="gallery" class="page">
+        <h2 class="section-title">Наши работы</h2>
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- JS сам наполнит этот контейнер -->
+        </div>
+    </section>
+
+    <!-- Секция контактов -->
+    <section id="contacts" class="page">
+        <h2 class="section-title">Контакты</h2>
+        
+        <div class="contacts-container">
+            <div class="contact-info">
+                <div class="contact-details">
+                    <h3 class="contact-title">Для подробностей позвоните</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Телефон</strong>
+                            +375 (29) 650 8145
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Email</strong>
+                            example@mail.ru
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Адрес</strong>
+                            г. Минск, ул. Минск, д. 1<br>
+                            Бизнес-центр "Сталь", офис 305
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <strong>Часы работы</strong>
+                            Пн-Пт: 9:00 - 18:00<br>
+                            Сб: 10:00 - 16:00<br>
+                            Вс: выходной
+                        </div>
+                    </div>
+                </div>              
+            </div>
+            
+            <div class="contact-map">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.3729517831825!2d37.61531041593103!3d55.751699980553!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a50b315e573%3A0xa886bf5a3d9b2e68!2z0JzQvtGB0LrQvtCy0YHQutC40Lkg0JrRgNC10LzQu9GM!5e0!3m2!1sru!2sru!4v1629800000000!5m2!1sru!2sru" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy"
+                ></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-dribbble"></i></a>
+        </div>
+        <p class="copyright">
+            <a href="login.html" style="text-decoration: none; color: inherit;">©</a> 2025 <span id="heroSitename3">Can't load title 😢</span>. Все права защищены.
+        </p>
+    </footer>
+
+    <!-- Кнопка вверх -->
+    <button id="back-to-top" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Скрипт -->
+    <script src="script.js" defer></script>
+    <script>
+        // Скрипт для обработки формы
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Здесь будет код для отправки формы
+                    alert('Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+                    contactForm.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

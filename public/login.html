@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в админ-панель</title>    
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* МЕТАЛЛИЧЕСКАЯ ЦВЕТОВАЯ ПАЛИТРА */
+        :root {
+            --metal-primary: #5a6b7c; /* Стальной */
+            --metal-secondary: #8d9aa5; /* Серебристый */
+            --metal-accent: #c4a86f; /* Бронзовый */
+            --metal-dark: #1e2329; /* Темная сталь */
+            --metal-light: #f0f2f5; /* Светлый металл */
+            --metal-bg-dark: #151a1f; /* Фон темной темы */
+            --metal-gold: #d4af37; /* Золотой акцент */
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(
+                145deg,
+                #2e2e2e 0%,       /* глубокий серый */
+                #3b3b3b 15%,      /* более мягкий серый */
+                #6a5f43 35%,      /* тёплый бронзово-золотой */
+                #b3a178 55%,      /* блеклый золото-серый */
+                #d6c6a5 70%,      /* пастельный золотисто-бежевый */
+                #8f8c85 85%,      /* пыльный серо-золотой */
+                #3a3a3a 100%      /* снова тёмный серый */
+            );
+
+            color: var(--metal-light);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Металлическая текстурная подложка */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255,255,255,0.03) 1px, transparent 1px),
+                radial-gradient(circle at 90% 80%, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 100px 100px;
+            z-index: -1;
+        }
+
+        /* Контейнер для формы входа */
+        .login-container {
+            max-width: 500px;
+            width: 90%;
+            padding: 40px;
+            background: rgba(30, 35, 41, 0.9);
+            border-radius: 28px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                inset 0 0 10px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(196, 168, 111, 0.2);
+        }
+
+        /* Металлический блеск */
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                        transparent 0%, 
+                        rgba(196, 168, 111, 0.1) 50%, 
+                        transparent 100%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        /* Логотип */
+        .login-logo {
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-logo-icon {
+            background: rgba(90, 107, 124, 0.2);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--metal-accent);
+            margin-bottom: 20px;
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.2),
+                inset 0 0 8px rgba(0,0,0,0.2);
+            border: 1px solid rgba(196, 168, 111, 0.2);
+        }
+
+        .login-title {
+            font-size: 2rem;
+            color: var(--metal-light);
+            margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .login-subtitle {
+            color: var(--metal-accent);
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Форма */
+        .login-form {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--metal-accent);
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 14px;
+            border: 1px solid var(--metal-primary);
+            background: rgba(30, 35, 41, 0.8);
+            color: var(--metal-light);
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+        }
+
+        .form-input:focus {
+            border-color: var(--metal-accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(196, 168, 111, 0.3);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--metal-accent);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .password-toggle:hover {
+            color: var(--metal-gold);
+        }
+
+        /* Кнопка входа */
+        .login-btn {
+            width: 100%;
+            background: var(--metal-primary);
+            color: var(--metal-light);
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 
+                inset 0 0 8px rgba(0,0,0,0.2),
+                0 4px 8px rgba(0,0,0,0.25);
+            border: 1px solid rgba(196, 168, 111, 0.3);
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--metal-accent);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .login-btn:hover::before {
+            width: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(196, 168, 111, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Подвал формы */
+        .login-footer {
+            margin-top: 30px;
+            color: var(--metal-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(196, 168, 111, 0.1);
+            padding-top: 20px;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Сообщение об ошибке */
+        .error-message {
+            color: #ff7675;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            height: 20px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        /* Анимация тряски при ошибке */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .login-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                width: 95%;
+                padding: 25px 15px;
+            }
+            
+            .login-logo-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-logo">
+            <div class="login-logo-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1 class="login-title">Админ-панель</h1>
+            <p class="login-subtitle">HeavyMetal - доступ для администратора</p>
+        </div>
+        
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="password" class="form-label">Пароль</label>
+                <div style="position: relative;">
+                    <input type="password" id="password" class="form-input" placeholder="Введите пароль" required>
+                    <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                </div>
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-lock"></i> Войти
+            </button>
+            
+            <div class="error-message" id="errorMessage"></div>
+        </form>
+        
+        <div class="login-footer">
+            <p><i class="fas fa-shield"></i> Доступ только для авторизованных пользователей</p>
+        </div>
+    </div>
+
+    <script>
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const loginForm = document.getElementById('loginForm');
+    const errorMessage = document.getElementById('errorMessage');
+
+    togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+        this.classList.toggle('fa-eye');
+    });
+
+    loginForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const password = passwordInput.value.trim();
+        errorMessage.textContent = '';
+        errorMessage.classList.remove('show');
+
+        loginForm.querySelector('button').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Проверка...';
+        loginForm.querySelector('button').disabled = true;
+
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            window.location.href = '/admin.html';
+        } else {
+            errorMessage.textContent = result.message;
+            errorMessage.classList.add('show');
+            passwordInput.focus();
+            loginForm.querySelector('button').innerHTML = '<i class="fas fa-sign-in-alt"></i> Войти';
+            loginForm.querySelector('button').disabled = false;
+            loginForm.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                loginForm.style.animation = '';
+            }, 500);
+        }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        passwordInput.focus();
+    });
+</script>
+</body>
+</html>
