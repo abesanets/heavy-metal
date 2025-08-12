@@ -225,26 +225,95 @@ function setupCategoryFilter() {
 
 /* ==================== ГАЛЕРЕЯ ИЗОБРАЖЕНИЙ ==================== */
 function setupGallery() {
-    document.querySelectorAll('.gallery-item').forEach(item => {
-        item.addEventListener('click', () => {
-            const imgSrc = item.querySelector('img').src;
-            const modalOverlay = document.createElement('div');
-            modalOverlay.style.cssText = `
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                background: rgba(0,0,0,0.9); display: flex; align-items: center;
-                justify-content: center; z-index: 2000; cursor: zoom-out;
-            `;
-            const img = document.createElement('img');
-            img.src = imgSrc;
-            img.style.cssText = `
-                max-width: 90%; max-height: 90%; border-radius: 10px;
-                box-shadow: 0 0 30px rgba(219, 186, 20, 0.6);
-            `;
-            modalOverlay.appendChild(img);
-            document.body.appendChild(modalOverlay);
-            modalOverlay.addEventListener('click', () => modalOverlay.remove());
-        });
-    });
+  // Собираем все элементы и src картинок
+  const items = Array.from(document.querySelectorAll('.gallery-item'));
+  const images = items.map(it => it.querySelector('img').src);
+
+  // Создаём один раз lightbox элементы (повторное использование)
+  let overlay = document.querySelector('.gallery-lightbox-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.className = 'gallery-lightbox-overlay';
+    overlay.innerHTML = `
+      <div class="gallery-lightbox-close" aria-label="Закрыть" title="Закрыть">
+        <!-- X -->
+        <svg viewBox="0 0 24 24"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 1 0 5.7 7.11L10.59 12l-4.89 4.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4z"/></svg>
+      </div>
+      <div class="gallery-lightbox-panel" role="dialog" aria-modal="true">
+        <img class="gallery-lightbox-img" src="" alt="">
+      </div>
+      <div class="gallery-lightbox-nav gallery-lightbox-prev" aria-label="Предыдущее" title="Предыдущее">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </div>
+      <div class="gallery-lightbox-nav gallery-lightbox-next" aria-label="Следующее" title="Следующее">
+        <svg viewBox="0 0 24 24"><path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/></svg>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+  }
+
+  const panel = overlay.querySelector('.gallery-lightbox-panel');
+  const imgEl  = overlay.querySelector('.gallery-lightbox-img');
+  const btnPrev = overlay.querySelector('.gallery-lightbox-prev');
+  const btnNext = overlay.querySelector('.gallery-lightbox-next');
+  const btnClose = overlay.querySelector('.gallery-lightbox-close');
+
+  let currentIndex = 0;
+
+  function showAt(index) {
+    if (index < 0) index = images.length - 1;
+    if (index >= images.length) index = 0;
+    currentIndex = index;
+    imgEl.src = images[currentIndex];
+    imgEl.alt = items[currentIndex].querySelector('img').alt || `Image ${currentIndex+1}`;
+    // Открыть оверлей (класс open триггерит анимацию)
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden'; // запрет прокрутки страницы
+    // фокус на закрытие для доступности
+    btnClose.focus();
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function prev() { showAt(currentIndex - 1); }
+  function next() { showAt(currentIndex + 1); }
+
+  // Навешиваем клики на миниатюры
+  items.forEach((item, idx) => {
+    // если галерея динамически перестраивается, можно обновлять images и items извне
+    item.addEventListener('click', () => showAt(idx));
+  });
+
+  // События управления
+  btnPrev.onclick = (e) => { e.stopPropagation(); prev(); };
+  btnNext.onclick = (e) => { e.stopPropagation(); next(); };
+  btnClose.onclick = (e) => { e.stopPropagation(); closeLightbox(); };
+
+  // Клик по overlay вне панели — закрыть
+  overlay.addEventListener('click', (e) => {
+    // если клик не внутри панели и не на навигации — закрываем
+    if (!panel.contains(e.target) &&
+        !btnPrev.contains(e.target) &&
+        !btnNext.contains(e.target) &&
+        !btnClose.contains(e.target)) {
+      closeLightbox();
+    }
+  });
+
+  // Клавиши ← → и Esc
+  function onKey(e) {
+    if (!overlay.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft') { prev(); }
+    else if (e.key === 'ArrowRight') { next(); }
+    else if (e.key === 'Escape') { closeLightbox(); }
+  }
+  window.addEventListener('keydown', onKey);
+
+  // очистка при необходимости — возвращаем слушатели, если будете ломать/пересоздавать галерею
+  // (в простом варианте не используем)
 }
 
 async function loadGallery() {

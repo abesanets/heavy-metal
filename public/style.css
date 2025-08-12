@@ -559,6 +559,105 @@
     transform: scale(1.1);
 }
 
+/* === Обновлённый CSS для лайтбокса (замени старые правила) === */
+
+/* Overlay скрыт по умолчанию */
+.gallery-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center; /* центрируем панель */
+  align-items: center;
+  z-index: 3000;
+  overflow: hidden;
+
+  /* Скрываем по умолчанию */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .24s ease, visibility .24s ease;
+}
+
+/* Когда открыт — делаем видимым и кликабельным */
+.gallery-lightbox-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Панель теперь по центру, без смещения */
+.gallery-lightbox-panel {
+  width: min(1000px, 92%);
+  max-height: 92%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+
+  /* небольшая анимация появления */
+  transform: scale(.96);
+  transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .2s;
+}
+
+/* При открытии — увеличиваем немного панель */
+.gallery-lightbox-overlay.open .gallery-lightbox-panel {
+  transform: scale(1);
+}
+
+/* изображение внутри панели — центрированное */
+.gallery-lightbox-img {
+  max-width: 1920px;
+  max-height: 800px;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  object-fit: contain;
+  display: block;
+}
+
+/* стрелки навигации — оставляем по краям экрана (над оверлеем) */
+.gallery-lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gradient-dark-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3010;
+  transition: background .12s;
+}
+.gallery-lightbox-nav:hover { background: var(--metal-gold); }
+
+.gallery-lightbox-prev { left: 36px; }
+.gallery-lightbox-next { right: 36px; }
+
+.gallery-lightbox-nav svg { width: 36px; height: 36px; fill: #fff; }
+
+/* Закрытие в левом верхнем углу (над оверлеем) */
+.gallery-lightbox-close {
+  position: fixed;
+  left: 18px;
+  top: 18px;
+  width: 44px; height: 44px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.45);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer;
+  z-index:3020;
+}
+
+/* Mobile: панель занимает почти весь экран */
+@media (max-width: 720px) {
+  .gallery-lightbox-panel { width: 100%; padding: 12px; }
+  .gallery-lightbox-prev { left: 8px; }
+  .gallery-lightbox-next { right: 8px; }
+}
 
         /* ==================== СЕКЦИЯ КОНТАКТОВ ==================== */
         #contacts {
