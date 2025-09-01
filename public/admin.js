@@ -11,8 +11,8 @@ function formatDate(dateStr) {
 function renderColoredStatus(status) {
   const map = {
     published: { label: 'Опубликован', color: 'green' },
-    draft:     { label: 'Скрыт',        color: 'orange' },
-    incomplete:{ label: 'Нецелой',      color: 'gray' }
+    draft: { label: 'Скрыт', color: 'orange' },
+    incomplete: { label: 'Нецелой', color: 'gray' }
   };
 
   const info = map[status] || { label: status, color: 'red' };
@@ -338,7 +338,7 @@ function startEditMode(m) {
   document.getElementById('matTitle').value = m.title;
   document.getElementById('matContent').value = m.content;
   document.getElementById('matStatus').checked = m.status === 'published';
-updateStatusLabel(); // 🟢 добавь это сюда
+  updateStatusLabel(); // 🟢 добавь это сюда
 
   document.getElementById('matUploadText').textContent = m.image || 'Перетащите изображение или нажмите';
 }
@@ -370,8 +370,8 @@ function resetForm2() {
   cancelBtn2.style.display = 'none';
   document.getElementById('matUploadText').textContent = 'Перетащите изображение или нажмите';
 }
-  const checkbox = document.getElementById("matStatus");
-  const label = document.getElementById("statusLabel");
+const checkbox = document.getElementById("matStatus");
+const label = document.getElementById("statusLabel");
 
 // ——————————————————————
 // Обработка настроек (форма)
@@ -398,7 +398,7 @@ document.getElementById('settingsForm')?.addEventListener('submit', async e => {
 // ——————————————————————
 // Загрузка и рендер галереи
 async function loadAdminGallery() {
-  const res   = await fetch('/gallery');
+  const res = await fetch('/gallery');
   const items = await res.json();
   const tbody = document.getElementById('galleryTable');
   tbody.innerHTML = '';
@@ -433,8 +433,8 @@ async function loadAdminGallery() {
 
 document.getElementById('uploadForm')?.addEventListener('submit', async e => {
   e.preventDefault();
-  const data   = new FormData(e.target);
-  const res    = await fetch('/upload', { method: 'POST', body: data });
+  const data = new FormData(e.target);
+  const res = await fetch('/upload', { method: 'POST', body: data });
   const result = await res.json();
   if (result.success) {
     e.target.reset();
@@ -524,23 +524,23 @@ window.addEventListener('DOMContentLoaded', () => {
   // Аплоадеры
   setupFileUpload({
     uploadEl: document.getElementById('matFileUpload'),
-    inputEl:  document.getElementById('matImage'),
-    textEl:   document.getElementById('matUploadText'),
-    btnEl:    document.getElementById('matFileBtn'),
+    inputEl: document.getElementById('matImage'),
+    textEl: document.getElementById('matUploadText'),
+    btnEl: document.getElementById('matFileBtn'),
   });
 
-    setupFileUpload({
+  setupFileUpload({
     uploadEl: document.getElementById('fileUpload'),
-    inputEl:  document.getElementById('imgFile'),
-    textEl:   document.getElementById('uploadText'),
-    btnEl:    document.getElementById('fileBtn'),
+    inputEl: document.getElementById('imgFile'),
+    textEl: document.getElementById('uploadText'),
+    btnEl: document.getElementById('fileBtn'),
   });
 
   setupFileUpload({
     uploadEl: document.getElementById('homeFileUpload'),
-    inputEl:  document.getElementById('homeImage'),
-    textEl:   document.getElementById('homeUploadText'),
-    btnEl:    document.getElementById('homeFileBtn'),
+    inputEl: document.getElementById('homeImage'),
+    textEl: document.getElementById('homeUploadText'),
+    btnEl: document.getElementById('homeFileBtn'),
   });
 
   // Данные
@@ -550,6 +550,6 @@ window.addEventListener('DOMContentLoaded', () => {
   populateCategories();
 
   checkbox?.addEventListener("change", updateStatusLabel);
-updateStatusLabel(); // первый запуск
+  updateStatusLabel(); // первый запуск
 
 });

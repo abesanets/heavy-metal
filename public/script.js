@@ -1,10 +1,10 @@
 /* ==================== ОБЩИЕ ПЕРЕМЕННЫЕ ==================== */
-const preloader        = document.getElementById('preloader');
-const navbar          = document.getElementById('navbar');
-const themeSwitch     = document.getElementById('theme-checkbox');
-const navLinks        = document.getElementById('nav-links');
-const overlay         = document.getElementById('menu-overlay');
-const backToTopBtn    = document.getElementById('back-to-top');
+const preloader = document.getElementById('preloader');
+const navbar = document.getElementById('navbar');
+const themeSwitch = document.getElementById('theme-checkbox');
+const navLinks = document.getElementById('nav-links');
+const overlay = document.getElementById('menu-overlay');
+const backToTopBtn = document.getElementById('back-to-top');
 
 /* ==================== ПРЕЛОАДЕР ==================== */
 window.addEventListener('load', () => {
@@ -52,7 +52,7 @@ function setupThemeSwitcher() {
     themeSwitch.checked = true;      // переключатель в положении «светло»
   }
 
-  themeSwitch.addEventListener('change', function() {
+  themeSwitch.addEventListener('change', function () {
     if (this.checked) {
       // Включили светлую
       document.documentElement.setAttribute('data-theme', 'light');
@@ -68,7 +68,7 @@ function setupThemeSwitcher() {
 
 /* ==================== ПЕРЕКЛЮЧЕНИЕ РАЗДЕЛОВ ==================== */
 function setupAdminSections() {
-  const links    = document.querySelectorAll('.admin-nav-link');
+  const links = document.querySelectorAll('.admin-nav-link');
   const sections = document.querySelectorAll('.admin-section');
 
   links.forEach(link => {
@@ -253,7 +253,7 @@ function setupGallery() {
   }
 
   const panel = overlay.querySelector('.gallery-lightbox-panel');
-  const imgEl  = overlay.querySelector('.gallery-lightbox-img');
+  const imgEl = overlay.querySelector('.gallery-lightbox-img');
   const btnPrev = overlay.querySelector('.gallery-lightbox-prev');
   const btnNext = overlay.querySelector('.gallery-lightbox-next');
   const btnClose = overlay.querySelector('.gallery-lightbox-close');
@@ -265,7 +265,7 @@ function setupGallery() {
     if (index >= images.length) index = 0;
     currentIndex = index;
     imgEl.src = images[currentIndex];
-    imgEl.alt = items[currentIndex].querySelector('img').alt || `Image ${currentIndex+1}`;
+    imgEl.alt = items[currentIndex].querySelector('img').alt || `Image ${currentIndex + 1}`;
     // Открыть оверлей (класс open триггерит анимацию)
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden'; // запрет прокрутки страницы
@@ -296,9 +296,9 @@ function setupGallery() {
   overlay.addEventListener('click', (e) => {
     // если клик не внутри панели и не на навигации — закрываем
     if (!panel.contains(e.target) &&
-        !btnPrev.contains(e.target) &&
-        !btnNext.contains(e.target) &&
-        !btnClose.contains(e.target)) {
+      !btnPrev.contains(e.target) &&
+      !btnNext.contains(e.target) &&
+      !btnClose.contains(e.target)) {
       closeLightbox();
     }
   });
@@ -317,42 +317,42 @@ function setupGallery() {
 }
 
 async function loadGallery() {
-    const res   = await fetch('/gallery');
-    const items = await res.json();
-    const grid  = document.getElementById('galleryGrid');
-    grid.innerHTML = '';
+  const res = await fetch('/gallery');
+  const items = await res.json();
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = '';
 
-    items.reverse().forEach(i => {
-        const div = document.createElement('div');
-        div.className = 'gallery-item animate-on-scroll';
-        div.innerHTML = `
+  items.reverse().forEach(i => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item animate-on-scroll';
+    div.innerHTML = `
             <img src="/uploads/${i.filename}" alt="${i.title}">
             <div class="overlay"><i class="fas fa-search-plus fa-3x"></i></div>
         `;
-        grid.appendChild(div);
-    });
+    grid.appendChild(div);
+  });
 
-    setupGallery();
-    handleScrollAnimations();
+  setupGallery();
+  handleScrollAnimations();
 }
 
 /* ==================== ЗАГРУЗКА ГЛАВНОЙ СТРАНИЦЫ ==================== */
 async function loadMain() {
-  const res    = await fetch('/main');
-  const items  = await res.json();
-  const cfg    = items[0];
-  
+  const res = await fetch('/main');
+  const items = await res.json();
+  const cfg = items[0];
+
   // название
   document.getElementById('heroSitename').textContent = cfg.sitename;
 
   // название
-  const rawName = cfg.sitename || ''; 
+  const rawName = cfg.sitename || '';
   let displayName;
 
   // 1) если есть пробелы, оборачиваем последнее слово
   if (rawName.includes(' ')) {
     const parts = rawName.split(' ');
-    const last  = parts.pop();
+    const last = parts.pop();
     const prefix = parts.join(' ');
     displayName = `${prefix} <span>${last}</span>`;
   } else {
@@ -375,10 +375,10 @@ async function loadMain() {
 
   // текст
   document.getElementById('heroDesc').textContent = cfg.description;
-  
+
   // заголовок: оборачиваем последн. слово в <span>
   document.getElementById('heroTitle').innerHTML = cfg.slogan;
-  
+
   // картинка
   const container = document.getElementById('homeImage');
   container.innerHTML = '';
@@ -401,7 +401,7 @@ function init() {
   setupAdminSections();
   setupBackToTop();
 
-  Promise.all([    
+  Promise.all([
     loadGallery(),
     loadMaterials(),
     loadMain()

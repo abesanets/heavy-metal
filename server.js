@@ -292,7 +292,7 @@ app.get('/materials_magaz', (req, res) => {
 
 app.get('/materials', (req, res) => {
   let materials = readJSON(MATERIALS_JSON);
-  materials.sort((a,b)=> new Date(b.date)-new Date(a.date));
+  materials.sort((a, b) => new Date(b.date) - new Date(a.date));
   res.json(materials);
 });
 
@@ -309,7 +309,7 @@ app.post('/materials', uploadMaterial.single('image'), (req, res) => {
     status: req.body.status || 'draft'  // теперь учитывается статус из формы
   });
   writeJSON(MATERIALS_JSON, materials);
-  res.json({success:true});
+  res.json({ success: true });
 });
 
 
@@ -334,7 +334,7 @@ app.post('/materials/update', uploadMaterial.single('image'), (req, res) => {
   // Если пришёл новый файл — удаляем старый
   if (req.file) {
     const oldImg = materials[idx].image;
-    if (oldImg) fs.unlink(path.join(UPLOAD_DIR, oldImg), () => {});
+    if (oldImg) fs.unlink(path.join(UPLOAD_DIR, oldImg), () => { });
     materials[idx].image = req.file.filename;
   }
 
@@ -365,7 +365,7 @@ app.post('/materials/delete', (req, res) => {
   let materials = readJSON(MATERIALS_JSON);
   const updated = materials.filter(m => String(m.id) !== String(id));
   writeJSON(MATERIALS_JSON, updated);
-  
+
   // Удаляем изображение
   if (image) {
     fs.unlink(path.join(UPLOAD_DIR, image), err => {
@@ -397,7 +397,7 @@ app.post('/categories/delete', (req, res) => {
   // Удаление связанных изображений
   const removedItems = materials.filter(m => m.category === category.title);
   for (const item of removedItems) {
-    if (item.image) fs.unlink(path.join(UPLOAD_DIR, item.image), () => {});
+    if (item.image) fs.unlink(path.join(UPLOAD_DIR, item.image), () => { });
   }
 
   writeJSON(MATERIALS_JSON, updatedMaterials);
@@ -461,7 +461,7 @@ async function cleanupUploadsDir() {
     // получаем информацию о каждом файле
     const stats = await Promise.all(files.map(async file => {
       const filepath = path.join(UPLOAD_DIR2, file);
-      const stat     = await fsPromises.stat(filepath);
+      const stat = await fsPromises.stat(filepath);
       return { file, mtime: stat.mtime };
     }));
 

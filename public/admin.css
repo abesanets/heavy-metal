@@ -1,24 +1,30 @@
 /* ==================== ЦВЕТОВАЯ ПАЛИТРА ==================== */
-        :root {
-            /* Основные металлические цвета */
-            --primary: #808d99; /* Стальной */
-            --secondary: #8d9aa5; /* Серебристый */
-            --accent: #c4a86f; /* Бронзовый акцент */
-            --dark: #1e2329; /* Темная сталь */
-            --light: #f0f2f5; /* Светлый металл */
-            --bg-dark: #83919f2c; /* Фон темной темы */
-    
+:root {
+    /* Основные металлические цвета */
+    --primary: #808d99;
+    /* Стальной */
+    --secondary: #8d9aa5;
+    /* Серебристый */
+    --accent: #c4a86f;
+    /* Бронзовый акцент */
+    --dark: #1e2329;
+    /* Темная сталь */
+    --light: #f0f2f5;
+    /* Светлый металл */
+    --bg-dark: #83919f2c;
+    /* Фон темной темы */
+
     /* Прозрачные цвета */
     --white-05: rgba(255, 255, 255, 0.05);
     --white-10: rgba(255, 255, 255, 0.436);
     --white-03: rgba(255, 255, 255, 0.03);
-    
+
     /* Градиенты */
     --accent-gradient: linear-gradient(90deg, var(--accent), transparent);
-    
+
     /* Тени */
     --primary-shadow: 0 0 0 3px #c4a86f7e;
-    
+
     /* Общие настройки */
     --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --border-radius: 12px;
@@ -36,18 +42,17 @@
 }
 
 body {
-background:
-  linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),  /* ← полупрозрачная тёмная маска */
-  linear-gradient(
-    145deg,
-    #1e1e1e 0%,
-    #2a2a2a 15%,
-    #4a432f 35%,
-    #8a7b55 55%,
-    #a89a82 70%,
-    #6e6b65 85%,
-    #2a2a2a 100%
-  );
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        /* ← полупрозрачная тёмная маска */
+        linear-gradient(145deg,
+            #1e1e1e 0%,
+            #2a2a2a 15%,
+            #4a432f 35%,
+            #8a7b55 55%,
+            #a89a82 70%,
+            #6e6b65 85%,
+            #2a2a2a 100%);
 
 
     color: var(--light);
@@ -109,7 +114,7 @@ background:
 
 .admin-logout:hover {
     background: var(--accent);
-    color: var(--dark);    
+    color: var(--dark);
 }
 
 /* ==================== САЙДБАР ==================== */
@@ -156,7 +161,7 @@ background:
     transition: var(--transition);
 }
 
-.admin-nav-link:hover, 
+.admin-nav-link:hover,
 .admin-nav-link.active {
     background: var(--dark);
     color: var(--accent);
@@ -220,8 +225,8 @@ background:
     color: var(--secondary);
 }
 
-.form-input, 
-.form-textarea, 
+.form-input,
+.form-textarea,
 .form-select {
     width: 100%;
     padding: 14px 18px;
@@ -233,8 +238,8 @@ background:
     transition: var(--transition);
 }
 
-.form-input:focus, 
-.form-textarea:focus, 
+.form-input:focus,
+.form-textarea:focus,
 .form-select:focus {
     border-color: var(--primary);
     outline: none;
@@ -296,40 +301,49 @@ background:
 
 /* Базовый стиль селекта */
 .form-select {
-  appearance: none;
-  -webkit-appearance: none;
-  background-color: var(--white-05);       /* Темная сталь */
-  color: var(--light);                 /* Светлый металл */
-  border: 2px solid var(--white-10);   /* Прозрачная светлая рамка */
-  border-radius: var(--border-radius);
-  padding: 14px 18px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: var(--transition);
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath fill='%23ffffff' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 18px center;
-  background-size: 10px 7px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--white-05);
+    /* Темная сталь */
+    color: var(--light);
+    /* Светлый металл */
+    border: 2px solid var(--white-10);
+    /* Прозрачная светлая рамка */
+    border-radius: var(--border-radius);
+    padding: 14px 18px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath fill='%23ffffff' d='M0 0l5 7 5-7z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 10px 7px;
 }
 
 /* Опции внутри селекта */
 .form-select option {
-  background-color: var(--dark);       /* Темная сталь */
-  color: var(--light);                 /* Светлый металл */
+    background-color: var(--dark);
+    /* Темная сталь */
+    color: var(--light);
+    /* Светлый металл */
 }
 
 /* Подсветка опции при наведении или выборе */
 .form-select option:hover,
 .form-select option:checked {
-  background-color: var(--accent);     /* Бронзовый акцент */
-  color: var(--dark);                  /* Темная сталь для контраста */
+    background-color: var(--accent);
+    /* Бронзовый акцент */
+    color: var(--dark);
+    /* Темная сталь для контраста */
 }
 
 /* Золотистое обрамление при фокусе на селекте */
 .form-select:focus {
-  outline: none;
-  border-color: var(--accent);         /* Бронзовый акцент */
-  box-shadow: var(--primary-shadow);   /* Металлическая тень */
+    outline: none;
+    border-color: var(--accent);
+    /* Бронзовый акцент */
+    box-shadow: var(--primary-shadow);
+    /* Металлическая тень */
 }
 
 
@@ -393,58 +407,59 @@ background:
 }
 
 .switch {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  gap: 10px;
-  user-select: none;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
+    user-select: none;
 }
 
 .switch input[type="checkbox"] {
-  opacity: 0;
-  width: 0;
-  height: 0;
-  position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
 }
 
 .slider {
-  position: relative;
-  width: 50px;
-  height: 26px;
-  background-color: #4caf50; /* по умолчанию зелёный */
-  border-radius: 34px;
-  transition: background-color 0.3s;
+    position: relative;
+    width: 50px;
+    height: 26px;
+    background-color: #4caf50;
+    /* по умолчанию зелёный */
+    border-radius: 34px;
+    transition: background-color 0.3s;
 }
 
 .slider::before {
-  content: "";
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  top: 3px;
-  background-color: white;
-  border-radius: 50%;
-  transition: transform 0.3s;
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    top: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
 }
 
-.switch input:checked + .slider {
-  background-color: #4caf50;
+.switch input:checked+.slider {
+    background-color: #4caf50;
 }
 
-.switch input:not(:checked) + .slider {
-  background-color: #ffc107;
+.switch input:not(:checked)+.slider {
+    background-color: #ffc107;
 }
 
-.switch input:checked + .slider::before {
-  transform: translateX(24px);
+.switch input:checked+.slider::before {
+    transform: translateX(24px);
 }
 
 .label-text {
-  font-size: 14px;
-  font-weight: 500;
-  transition: color 0.3s;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
 
@@ -488,8 +503,15 @@ background:
 
 /* ==================== АНИМАЦИИ ==================== */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ==================== АДАПТИВНОСТЬ ==================== */
@@ -497,9 +519,11 @@ background:
     .admin-content {
         grid-template-columns: 1fr;
     }
+
     .admin-sidebar {
         margin-bottom: 20px;
     }
+
     .stats-grid {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
@@ -511,9 +535,11 @@ background:
         text-align: center;
         gap: 20px;
     }
+
     .admin-title {
         flex-direction: column;
     }
+
     .admin-main {
         padding: 20px 15px;
     }
